@@ -1,17 +1,29 @@
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: $title$
-  labels:
-    role: $title$
+  name: mysql-deployment
 spec:
-  containers:
-    - name: $title$
-      image: $nginx$
-      imagePullPolicy: IfNotPresent
-      ports:
-        - name: $title$
-          containerPort: $80$
-          protocol: $TCP$
-  restartPolicy: Always
-  $END$
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:5.7
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: "yourpassword"
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - name: mysql-storage
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: mysql-storage
+          persistentVolumeClaim:
+            claimName: mysql-pvc
