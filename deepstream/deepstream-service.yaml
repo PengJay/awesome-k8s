@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: deepstream-service
+spec:
+  selector:
+    app: deepstream
+  ports:
+    - name: websocket
+      protocol: TCP
+      port: 6020
+      targetPort: 6020
+  type: LoadBalancer

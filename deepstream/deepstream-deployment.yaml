@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deepstream
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: deepstream
+  template:
+    metadata:
+      labels:
+        app: deepstream
+    spec:
+      containers:
+        - name: deepstream
+          image: deepstreamio/deepstream.io:3.2.2
+          ports:
+            - containerPort: 6020
+            - containerPort: 8080
+          volumeMounts:
+            - name: deepstream-config
+              mountPath: /etc/deepstream/config.yml   # 挂载目录
+              subPath: config.yml         # 指定挂载的子路径（文件）
+      volumes:
+        - name: deepstream-config
+          configMap:
+            name: deepstream-config
+            items:
+              - key: config.yml
+                path: config.yml
