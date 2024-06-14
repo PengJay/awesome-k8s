@@ -9,4 +9,4 @@ spec:
     - ReadWriteOnce
   storageClassName: hostpath
   hostPath:
-    path: ${MONGO_PATH}/k8s-data/mongo
+    path: /Users/jie.peng/CB_project/trading/k8s-data/mongo
