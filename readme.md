@@ -33,7 +33,6 @@ helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dash
 
 #### 2.3 dashboard管理员创建
 ``` shell
-cd ....../trading/m_ex_app/k8s
 # dashboard管理员
 kubectl apply -f ./system/dashboard-adminuser.yaml
 # 性能指标监控服务 metrics-server
